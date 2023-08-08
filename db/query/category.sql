@@ -21,7 +21,7 @@ AND
 AND
   LOWER(title) LIKE CONCAT('%', LOWER(@title::text), '%')
 AND
-  LOWER(description) LIKE CONCAT('%', LOWER(@type::text), '%');
+  LOWER(description) LIKE CONCAT('%', LOWER(@description::text), '%');
 
 -- name: UpdateCategory :one
 UPDATE categories

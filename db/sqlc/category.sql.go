@@ -69,10 +69,10 @@ AND
 `
 
 type GetCategoriesParams struct {
-	UserID int32  `json:"user_id"`
-	Type   string `json:"type"`
-	Title  string `json:"title"`
-	Type_2 string `json:"type_2"`
+	UserID      int32  `json:"user_id"`
+	Type        string `json:"type"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
 }
 
 func (q *Queries) GetCategories(ctx context.Context, arg GetCategoriesParams) ([]Category, error) {
@@ -80,7 +80,7 @@ func (q *Queries) GetCategories(ctx context.Context, arg GetCategoriesParams) ([
 		arg.UserID,
 		arg.Type,
 		arg.Title,
-		arg.Type_2,
+		arg.Description,
 	)
 	if err != nil {
 		return nil, err
