@@ -18,6 +18,7 @@ type Account struct {
 	Value       int32     `json:"value"`
 	Date        time.Time `json:"date"`
 	CreatedAt   time.Time `json:"created_at"`
+	UpdatedAt   time.Time `json:"updated_at"`
 }
 
 type Category struct {
@@ -27,6 +28,7 @@ type Category struct {
 	Type        string    `json:"type"`
 	Description string    `json:"description"`
 	CreatedAt   time.Time `json:"created_at"`
+	UpdatedAt   time.Time `json:"updated_at"`
 }
 
 type User struct {
@@ -35,4 +37,5 @@ type User struct {
 	Password  string    `json:"password"`
 	Email     string    `json:"email"`
 	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }

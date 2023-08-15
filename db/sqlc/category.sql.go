@@ -17,7 +17,7 @@ INSERT INTO categories (
   description
 ) VALUES (
   $1, $2, $3, $4
-) RETURNING id, user_id, title, type, description, created_at
+) RETURNING id, user_id, title, type, description, created_at, updated_at
 `
 
 type CreateCategoryParams struct {
@@ -42,6 +42,7 @@ func (q *Queries) CreateCategory(ctx context.Context, arg CreateCategoryParams) 
 		&i.Type,
 		&i.Description,
 		&i.CreatedAt,
+		&i.UpdatedAt,
 	)
 	return i, err
 }
@@ -57,7 +58,7 @@ func (q *Queries) DeleteCategory(ctx context.Context, id int32) error {
 }
 
 const getCategories = `-- name: GetCategories :many
-SELECT id, user_id, title, type, description, created_at FROM categories
+SELECT id, user_id, title, type, description, created_at, updated_at FROM categories
 WHERE
   user_id = $1
 AND
@@ -96,6 +97,7 @@ func (q *Queries) GetCategories(ctx context.Context, arg GetCategoriesParams) ([
 			&i.Type,
 			&i.Description,
 			&i.CreatedAt,
+			&i.UpdatedAt,
 		); err != nil {
 			return nil, err
 		}
@@ -111,7 +113,7 @@ func (q *Queries) GetCategories(ctx context.Context, arg GetCategoriesParams) ([
 }
 
 const getCategoryById = `-- name: GetCategoryById :one
-SELECT id, user_id, title, type, description, created_at FROM categories
+SELECT id, user_id, title, type, description, created_at, updated_at FROM categories
 WHERE id = $1 LIMIT 1
 `
 
@@ -125,6 +127,7 @@ func (q *Queries) GetCategoryById(ctx context.Context, id int32) (Category, erro
 		&i.Type,
 		&i.Description,
 		&i.CreatedAt,
+		&i.UpdatedAt,
 	)
 	return i, err
 }
@@ -133,7 +136,7 @@ const updateCategory = `-- name: UpdateCategory :one
 UPDATE categories
 SET title = $2, description = $3, "updated_at" = (NOW())
 WHERE id = $1
-RETURNING id, user_id, title, type, description, created_at
+RETURNING id, user_id, title, type, description, created_at, updated_at
 `
 
 type UpdateCategoryParams struct {
@@ -152,6 +155,7 @@ func (q *Queries) UpdateCategory(ctx context.Context, arg UpdateCategoryParams) 
 		&i.Type,
 		&i.Description,
 		&i.CreatedAt,
+		&i.UpdatedAt,
 	)
 	return i, err
 }
